@@ -1,0 +1,4 @@
+- hosts: localhost
+  tasks: 
+  - name: get_my_war
+    get_url: url=libs-snapshot-local/org/springframework/samples/spring-petclinic-yulaufe/1.0.0-SNAPSHOT/spring-petclinic-yulaufe-1.0.0-20160214.124046-1.war
