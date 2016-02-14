@@ -14,8 +14,8 @@
     file: path=~/devops_course state=directory
 
   - name: clone petclinic
-    git: repo=https://github.com/spring-projects/spring-petclinic.git dest=~/devops_course/petclinic
+    git: repo=https://github.com/spring-projects/spring-petclinic.git dest=~/devops_course/petclinic update=no
 
   - name: clone yuvtest
-    git: repo=https://github.com/yulaufe/yuvtest dest=~/devops_course/yuvtest
+    git: repo=https://github.com/yulaufe/yuvtest dest=~/devops_course/yuvtest update=no
 
