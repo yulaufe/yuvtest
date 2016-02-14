@@ -1,0 +1,40 @@
+- hosts: localhost
+  tasks:
+  - name: install git
+    yum: name=git state=latest
+    become: yes
+    become_method: sudo
+
+  - name: install docker
+    yum: name=docker state=latest
+    become: yes
+    become_method: sudo
+
+  - name: create_dir
+    file: path=~/devops_course state=directory
+
+  - name: clone petclinic
+    git: repo=https://github.com/spring-projects/spring-petclinic.git dest=~/devops_course/petclinic update=no
+
+  - name: clone yuvtest
+    git: repo=https://github.com/yulaufe/yuvtest dest=~/devops_course/yuvtest update=no
+
+  - name: Ensure Jenkins Yum repo present
+    become: yes
+    become_method: sudo
+    get_url: url=http://pkg.jenkins-ci.org/redhat/jenkins.repo dest=/etc/yum.repos.d/jenkins.repo mode=0644
+
+   - name: Ensure Jenkins GPG key installed
+     command: rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+     become: yes
+     become_method: sudo
+
+   - name: Ensure Jenkins installed
+     yum: name=jenkins state=present
+     become: yes
+     become_method: sudo
+
+   - name: Ensure Jenkins is running
+     service: name=jenkins state=running enabled=true
+     become: yes
+     become_method: sudo
