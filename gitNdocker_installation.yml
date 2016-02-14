@@ -1,0 +1,21 @@
+- hosts: localhost
+  tasks:
+  - name: install git
+    yum: name=git state=latest
+    become: yes
+    become_method: sudo
+
+  - name: install docker
+    yum: name=docker state=latest
+    become: yes
+    become_method: sudo
+
+  - name: create_dir
+    file: path=~/devops_course state=directory
+
+  - name: clone petclinic
+    git: repo=https://github.com/spring-projects/spring-petclinic.git dest=~/devops_course/petclinic
+
+  - name: clone yuvtest
+    git: repo=https://github.com/yulaufe/yuvtest dest=~/devops_course/yuvtest
+
