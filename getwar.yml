@@ -1,0 +1,4 @@
+- hosts: localhost
+  tasks:
+    - name: get my war
+      get_url: url=http://172.31.0.42:8081/artifactory/libs-snapshot-local/org/springframework/samples/spring-petclinic-somethingelse/1.0.0-SNAPSHOT/spring-petclinic-somethingelse-1.0.0-20160214.123214-1.war dest=~/devops_course/docker/petclinic.war

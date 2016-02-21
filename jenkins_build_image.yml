@@ -1,0 +1,27 @@
+- hosts: localhost
+  tasks:
+  - name: install git
+    yum: name=git state=latest
+    become: yes
+    become_method: sudo
+
+  - name: install docker
+    yum: name=docker state=latest
+    become: yes
+    become_method: sudo
+
+  - name: create_dir
+    file: path=~/devops_course/build_image state=directory
+     
+  - name: build docker
+    get_url: https://github.com/shimib/xura/blob/master/Dockerfile dest=/home/ec2-user/devops_course/build_image/Dockerfile mode=0440
+       docker_image: path="/home/ec2-user/devops_course/build_image/Dockerfile" name="jenkins_build_docker" state=build
+     - name: run image
+       docker:
+        name: jenkins_ansible_build_docker
+        image: jenkins_build_docker
+        state: started
+        expose:
+        - 8080
+        ports:
+        - "9090:8080"

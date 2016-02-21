@@ -1,0 +1,16 @@
+- hosts: localhost
+  tasks:
+  - name: install git
+    yum: name=git state=latest
+    become: yes
+    become_method: sudo
+
+  - name: clone xura
+    git: repo=https://github.com/shimib/xura.git dest=/yuval/xura
+  
+
+  - name: create_dir
+    file: path=/yuval/build_image state=directory
+     
+  - name: build image
+    get_url: url=https://github.com/shimib/xura/blob/master/Dockerfile dest=/yuval/build_image/Dockerfile mode=0440

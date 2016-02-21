@@ -1,0 +1,13 @@
+- hosts: localhost
+  tasks:
+     - name: build docker
+       docker_image: path="/home/ec2-user/devops_course/docker" name="my_tomcat_docker" state=build
+     - name: run image
+       docker:
+        name: mytomcat1
+        image: my_tomcat_docker
+        state: started
+        expose:
+        - 8080
+        ports:
+        - "9090:8080"
